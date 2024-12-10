@@ -1,8 +1,14 @@
+import logging
+from financial_data_quality.logger_setup import DATA_VALIDATION_LOGGER_NAME
 
-    import pandas as pd
+class AccountInfo:
+    def __init__(self, account_info_file):
+        self.metadata = metadata_file
+        self.data_validation_logger = logging.getLogger(DATA_VALIDATION_LOGGER_NAME)
 
-    class AccountInfo: 
-      def init(self, account_metadata_file): 
-        self.accounts = pd.read_csv(account_metadata_file)
-      def get_account_info(self, account_name):
-          return self.accounts[self.accounts['account_name'] == account_name]
+    def validate_metadata(self):
+        if not self.metadata:
+            self.data_validation_logger.error(
+                "Metadata validation failed",
+                extra={"details": {"reason": "Metadata file is empty"}}
+            )
